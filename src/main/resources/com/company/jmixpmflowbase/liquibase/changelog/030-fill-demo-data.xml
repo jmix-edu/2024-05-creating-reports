@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <property name="today" value="now()" dbms="!oracle, !mysqldb, !mariadb"/>
+    <property name="twoDaysAgo" value="now() - INTERVAL '2' DAY" dbms="!oracle, !mysqldb, !mariadb"/>
+    <property name="twoDaysLater" value="now() + INTERVAL '2' DAY" dbms="!oracle, !mysqldb, !mariadb"/>
+    <property name="weekAfter" value="now() + INTERVAL '7' DAY" dbms="!oracle, !mysqldb, !mariadb"/>
+    <property name="uuid_function" value="gen_random_uuid()" dbms="postgresql"/>
+    <property name="uuid_function" value="uuid()" dbms="hsqldb"/>
+
+    <changeSet id="1" author="jmixpm-flow-base" context="!cuba">
+
+        <insert tableName="USER_" dbms="postgresql, mssql, hsqldb">
+            <column name="ID" value="60885987-1b61-4247-95c8-dff348347f93"/>
+            <column name="VERSION" value="1"/>
+            <column name="USERNAME" value="dev1"/>
+            <column name="PASSWORD" value="{noop}admin"/>
+            <column name="FIRST_NAME" value="John"/>
+            <column name="LAST_NAME" value="Doe"/>
+            <column name="ACTIVE" valueBoolean="true"/>
+        </insert>
+
+         <insert tableName="SEC_ROLE_ASSIGNMENT" dbms="postgresql, mssql, hsqldb">
+            <column name="ID" valueComputed="${uuid_function}"/>
+            <column name="VERSION" value="1"/>
+            <column name="USERNAME" value="dev1"/>
+            <column name="ROLE_CODE" value="ui-minimal"/>
+            <column name="ROLE_TYPE" value="resource"/>
+        </insert>
+
+        <insert tableName="SEC_ROLE_ASSIGNMENT" dbms="postgresql, mssql, hsqldb">
+            <column name="ID" valueComputed="${uuid_function}"/>
+            <column name="VERSION" value="1"/>
+            <column name="USERNAME" value="dev1"/>
+            <column name="ROLE_CODE" value="tasks-viewer"/>
+            <column name="ROLE_TYPE" value="resource"/>
+        </insert>
+
+    </changeSet>
+    <changeSet id="2" author="jmixpm-flow-base" context="!cuba">
+
+        <insert tableName="USER_" dbms="postgresql, mssql, hsqldb">
+            <column name="ID" value="60885987-1b61-4247-95c9-dff348347f39"/>
+            <column name="VERSION" value="1"/>
+            <column name="USERNAME" value="dev2"/>
+            <column name="PASSWORD" value="{noop}admin"/>
+            <column name="FIRST_NAME" value="Marry"/>
+            <column name="LAST_NAME" value="Smith"/>
+            <column name="ACTIVE" valueBoolean="true"/>
+        </insert>
+
+    </changeSet>
+    <changeSet id="3" author="jmixpm-flow-base">
+        <insert tableName="PROJECT">
+            <column name="ID" value="6a678f03-ce8d-4293-8219-ee048feeaff3"/>
+            <column name="NAME">Jmix trainings</column>
+            <column name="START_DATE" valueDate="${twoDaysAgo}"/>
+            <column name="END_DATE" valueDate="${weekAfter}"/>
+            <column name="MANAGER_ID" value="60885987-1b61-4247-95c8-dff348347f93"/>
+            <column name="STATUS" value="10"/>
+        </insert>
+
+        <insert tableName="PROJECT">
+            <column name="ID" value="48e9a630-ece7-41b8-a1ed-22f3e897a784"/>
+            <column name="NAME">Release</column>
+            <column name="START_DATE" valueDate="${today}"/>
+            <column name="END_DATE" valueDate="${weekAfter}"/>
+            <column name="MANAGER_ID" value="60885987-1b61-4247-94c7-dff348347f93"/>
+            <column name="STATUS" value="10"/>
+        </insert>
+
+        <insert tableName="TASK_">
+            <column name="ID" value="9db9b040-03e6-49f0-bbbb-a898ce1b2c99"/>
+            <column name="NAME" value="Prepare Script"/>
+            <column name="PROJECT_ID" value="6a678f03-ce8d-4293-8219-ee048feeaff3"/>
+            <column name="ASSIGNEE_ID" value="60885987-1b61-4247-95c8-dff348347f93"/>
+            <column name="START_DATE" valueDate="${twoDaysLater}"/>
+            <column name="ESTIMATED_EFFORTS" value="4"/>
+        </insert>
+
+        <insert tableName="TASK_">
+            <column name="ID" value="3fa7213a-e470-431e-9c18-d8d6d86570d4"/>
+            <column name="NAME" value="Prepare Presentation"/>
+            <column name="PROJECT_ID" value="6a678f03-ce8d-4293-8219-ee048feeaff3"/>
+            <column name="ASSIGNEE_ID" value="60885987-1b61-4247-95c8-dff348347f93"/>
+            <column name="START_DATE" valueDate="${today}"/>
+            <column name="ESTIMATED_EFFORTS" value="3"/>
+        </insert>
+
+        <insert tableName="TASK_">
+            <column name="ID" value="579d4264-a2b7-4343-b84d-45bf2f1aad9c"/>
+            <column name="NAME" value="Prepare Video"/>
+            <column name="PROJECT_ID" value="6a678f03-ce8d-4293-8219-ee048feeaff3"/>
+            <column name="ASSIGNEE_ID" value="60885987-1b61-4247-95c9-dff348347f39"/>
+            <column name="START_DATE" valueDate="${twoDaysAgo}"/>
+            <column name="ESTIMATED_EFFORTS" value="6"/>
+        </insert>
+
+        <insert tableName="TASK_">
+            <column name="ID" value="47086191-2e92-4015-946c-df5916d985a6"/>
+            <column name="NAME" value="Write code"/>
+            <column name="PROJECT_ID" value="48e9a630-ece7-41b8-a1ed-22f3e897a784"/>
+            <column name="ASSIGNEE_ID" value="60885987-1b61-4247-95c9-dff348347f39"/>
+            <column name="START_DATE" valueDate="${twoDaysAgo}"/>
+            <column name="ESTIMATED_EFFORTS" value="4"/>
+        </insert>
+
+        <insert tableName="TASK_">
+            <column name="ID" value="4f867e22-a042-4ba9-89c6-65ebe417634f"/>
+            <column name="NAME" value="Force push to origin main"/>
+            <column name="PROJECT_ID" value="48e9a630-ece7-41b8-a1ed-22f3e897a784"/>
+            <column name="ASSIGNEE_ID" value="60885987-1b61-4247-95c9-dff348347f39"/>
+            <column name="START_DATE" valueDate="${today}"/>
+            <column name="ESTIMATED_EFFORTS" value="1"/>
+        </insert>
+
+        <insert tableName="TASK_">
+            <column name="ID" value="430cdea7-974c-4723-8fa5-88e0cf665162"/>
+            <column name="NAME" value="Refresh Linkedin and HH CVs"/>
+            <column name="PROJECT_ID" value="48e9a630-ece7-41b8-a1ed-22f3e897a784"/>
+            <column name="ASSIGNEE_ID" value="60885987-1b61-4247-95c9-dff348347f39"/>
+            <column name="START_DATE" valueDate="${twoDaysLater}"/>
+            <column name="ESTIMATED_EFFORTS" value="2"/>
+        </insert>
+
+        <insert tableName="TIME_ENTRY">
+            <column name="ID" value="ac8209cf-0923-451d-a23a-f526501503a8"/>
+            <column name="ENTRY_DATE" valueDate="${twoDaysAgo}"/>
+            <column name="TASK_ID" value="430cdea7-974c-4723-8fa5-88e0cf665162"/>
+            <column name="TIME_SPENT" valueNumeric="3"/>
+        </insert>
+
+        <insert tableName="TIME_ENTRY">
+            <column name="ID" value="c75f2b34-cfcb-459c-8087-71959163535b"/>
+            <column name="ENTRY_DATE" valueDate="${today}"/>
+            <column name="TASK_ID" value="430cdea7-974c-4723-8fa5-88e0cf665162"/>
+            <column name="TIME_SPENT" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="TIME_ENTRY">
+            <column name="ID" value="48b0ebde-05ba-4429-90fa-2e51787072b7"/>
+            <column name="ENTRY_DATE" valueDate="${twoDaysAgo}"/>
+            <column name="TASK_ID" value="47086191-2e92-4015-946c-df5916d985a6"/>
+            <column name="TIME_SPENT" valueNumeric="3"/>
+        </insert>
+
+        <insert tableName="TIME_ENTRY">
+            <column name="ID" value="184dc39c-4636-478e-b353-8286753555d9"/>
+            <column name="ENTRY_DATE" valueDate="${today}"/>
+            <column name="TASK_ID" value="4f867e22-a042-4ba9-89c6-65ebe417634f"/>
+            <column name="TIME_SPENT" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="TIME_ENTRY">
+            <column name="ID" value="3f197ad5-2c7a-416b-ae4f-8f478193a4e5"/>
+            <column name="ENTRY_DATE" valueDate="${today}"/>
+            <column name="TASK_ID" value="9db9b040-03e6-49f0-bbbb-a898ce1b2c99"/>
+            <column name="TIME_SPENT" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="TIME_ENTRY">
+            <column name="ID" value="44ca8247-0b85-4a9f-90cd-4fb693572ef1"/>
+            <column name="ENTRY_DATE" valueDate="${today}"/>
+            <column name="TASK_ID" value="3fa7213a-e470-431e-9c18-d8d6d86570d4"/>
+            <column name="TIME_SPENT" valueNumeric="2"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

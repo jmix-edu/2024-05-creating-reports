@@ -1,0 +1,38 @@
+package com.company.jmixpmflowbase.security;
+
+import com.company.jmixpmflowbase.entity.Project;
+import com.company.jmixpmflowbase.entity.Task;
+import com.company.jmixpmflowbase.entity.TimeEntry;
+import com.company.jmixpmflowbase.entity.User;
+import io.jmix.security.model.EntityAttributePolicyAction;
+import io.jmix.security.model.EntityPolicyAction;
+import io.jmix.security.role.annotation.EntityAttributePolicy;
+import io.jmix.security.role.annotation.EntityPolicy;
+import io.jmix.security.role.annotation.ResourceRole;
+import io.jmix.securityflowui.role.annotation.MenuPolicy;
+import io.jmix.securityflowui.role.annotation.ViewPolicy;
+
+@ResourceRole(name = "TasksViewer", code = TasksViewerRole.CODE, scope = "UI")
+public interface TasksViewerRole {
+    String CODE = "tasks-viewer";
+
+    @MenuPolicy(menuIds = "Task_.list")
+    @ViewPolicy(viewIds = {"Task_.list", "Task_.detail"})
+    void screens();
+
+    @EntityAttributePolicy(entityClass = Task.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
+    @EntityPolicy(entityClass = Task.class, actions = EntityPolicyAction.READ)
+    void task();
+
+    @EntityAttributePolicy(entityClass = Project.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
+    @EntityPolicy(entityClass = Project.class, actions = EntityPolicyAction.READ)
+    void project();
+
+    @EntityAttributePolicy(entityClass = TimeEntry.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
+    @EntityPolicy(entityClass = TimeEntry.class, actions = EntityPolicyAction.READ)
+    void timeEntry();
+
+    @EntityAttributePolicy(entityClass = User.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
+    @EntityPolicy(entityClass = User.class, actions = EntityPolicyAction.READ)
+    void user();
+}
