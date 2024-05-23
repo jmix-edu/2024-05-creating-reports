@@ -32,10 +32,16 @@
             <textField id="emailField" property="email"/>
             <comboBox id="timeZoneField" property="timeZoneId"/>
             <checkbox id="activeField" property="active"/>
+            <fileStorageUploadField id="photoField" property="photo" clearButtonVisible="true"
+                                    fileNameVisible="true" uploadIcon="UPLOAD_ALT"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>
+
+        <div id="documentFrame" width="100%" height="100%"/>
+
+<!--        <iframe id="displayPdf" width="100%" height="100%"/>-->
     </layout>
 </view>

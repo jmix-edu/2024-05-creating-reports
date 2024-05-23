@@ -1,5 +1,6 @@
 package com.company.jmixpmflowbase.entity;
 
+import io.jmix.core.FileRef;
 import io.jmix.core.HasTimeZone;
 import io.jmix.core.annotation.Secret;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
@@ -56,8 +57,30 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Column(name = "TIME_ZONE_ID")
     protected String timeZoneId;
 
+    @Column(name = "PHOTO", length = 1024)
+    private FileRef photo;
+
+    @Column(name = "DOCUMENT", length = 1024)
+    private FileRef document;
+
     @Transient
     protected Collection<? extends GrantedAuthority> authorities;
+
+    public FileRef getDocument() {
+        return document;
+    }
+
+    public void setDocument(FileRef document) {
+        this.document = document;
+    }
+
+    public FileRef getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(FileRef photo) {
+        this.photo = photo;
+    }
 
     public UUID getId() {
         return id;
